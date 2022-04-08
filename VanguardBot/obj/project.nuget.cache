@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "erScYO6kMfY7a1taLpO2JWIu/Bmw7M9xUAjtpMjeSVNdC4pMHaftrM8Pxrw9rmli+CrTzDqocT8hsWuEPVjoGQ==",
+  "dgSpecHash": "udBAmaHH3+/oOewD39tnbl61IDuFfv7FQV2+2jniYVS9fNFRKhtagi7TSUmDmx1Z+wvaAqn27vI/TzrGQBis2Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\danie\\Repo\\VanguardBot\\VanguardBot\\VanguardBot.csproj",
   "expectedPackageFiles": [
@@ -17,7 +17,8 @@
     "C:\\Users\\danie\\.nuget\\packages\\system.interactive.async\\5.0.0\\system.interactive.async.5.0.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\system.linq.async\\5.0.0\\system.linq.async.5.0.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\system.reactive\\5.0.0\\system.reactive.5.0.0.nupkg.sha512",
-    "C:\\Users\\danie\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
+    "C:\\Users\\danie\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
+    "C:\\Users\\danie\\.nuget\\packages\\twittersharp\\2.1.0\\twittersharp.2.1.0.nupkg.sha512"
   ],
   "logs": []
 }

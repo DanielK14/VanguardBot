@@ -47,6 +47,10 @@
             "Discord.Net": {
               "target": "Package",
               "version": "[3.5.0, )"
+            },
+            "TwitterSharp": {
+              "target": "Package",
+              "version": "[2.1.0, )"
             }
           },
           "imports": [
