@@ -41,6 +41,26 @@ namespace VanguardBot
                 await command.RespondAsync(nightFallName);
             }
         }
+        public async void getChallenges(SocketSlashCommand command)
+        {
+            List<int> activitiesId = new List<int> { 18, 36, 69, 73 };
+            string challenges = "";
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("X-API-Key", Environment.GetEnvironmentVariable("BungieAPIToken"));
+                var response = await client.GetAsync("https://www.bungie.net/Platform/Destiny2/3/Profile/4611686018484533920/Character/2305843009460474089?components=204");
+                var content = await response.Content.ReadAsStringAsync();
+                dynamic item = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
+                foreach(int activity in activitiesId)
+                {
+                    long challengeHash = item.Response.activities.data.availableActivities[activity].modifierHashes[0];
+                    int challengeId = hashConverter(challengeHash);
+                    string challengeName = challengeLookUp(challengeId);
+                    challenges += challengeName + ", ";
+                }
+                await command.RespondAsync(challenges);
+            }
+        }
 
         private int hashConverter(long hash)
         {
@@ -89,6 +109,50 @@ namespace VanguardBot
                     return "The Disgraced";
                 default:
                     return "Unknown NightfallId";
+
+            }
+        }
+
+        private string challengeLookUp(int id)
+        {
+            switch (id)
+            {
+                case -2038982596:
+                    return "Defences Down";
+                case -1668962583:
+                    return "To the Top";
+                case -1622741174:
+                    return "Swift Destruction";
+                case -1480120887:
+                    return "Out of It's Way";
+                case -1159501237:
+                    return "Wait for It...";
+                case -1082245710:
+                    return "Strangers in Time";
+                case -933069936:
+                    return "Copies of Copies";
+                case -869445776:
+                    return "Base Information";
+                case -271344164:
+                    return "Red Rover";
+                case -221770195:
+                    return "Zero to One Hundred";
+                case 191124900:
+                    return "The Core Four";
+                case 201968501:
+                    return "Of All Trades";
+                case 274420331:
+                    return "The Only Oracle For You";
+                case 584466411:
+                    return "Leftovers";
+                case 787678752:
+                    return "A Link to the Chain";
+                case 1572570117:
+                    return "Ensemble's Refrain";
+                case 2098788044:
+                    return "Looping Catalyst";
+                default:
+                    return "Unknown ChallengeId";
 
             }
         }
