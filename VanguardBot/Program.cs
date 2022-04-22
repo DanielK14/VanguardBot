@@ -43,10 +43,15 @@ namespace VanguardBot
             nightfallCommand.WithName("nightfall");
             nightfallCommand.WithDescription("Get the current Nightfall");
 
+            var challengesCommand = new SlashCommandBuilder();
+            challengesCommand.WithName("challenges");
+            challengesCommand.WithDescription("Get the active raid challenges for this week");
+
             try
             {
                 await _client.Rest.CreateGuildCommand(statusCommand.Build(), guildID);
                 await _client.Rest.CreateGuildCommand(nightfallCommand.Build(), guildID);
+                await _client.Rest.CreateGuildCommand(challengesCommand.Build(), guildID);
             }
             catch (HttpException exception)
             {
@@ -64,6 +69,9 @@ namespace VanguardBot
                     break;
                 case "nightfall":
                     new BungieMethods().getNightfall(command);
+                    break;
+                case "challenges":
+                    new BungieMethods().getChallenges(command);
                     break;
                 default:
                     await command.RespondAsync($"You have run {command.Data.Name}, which does nothing.");
