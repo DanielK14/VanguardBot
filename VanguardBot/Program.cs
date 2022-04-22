@@ -39,9 +39,14 @@ namespace VanguardBot
             statusCommand.WithName("status");
             statusCommand.WithDescription("Get the latest tweet from BungieHelp twitter.");
 
+            var nightfallCommand = new SlashCommandBuilder();
+            nightfallCommand.WithName("nightfall");
+            nightfallCommand.WithDescription("Get the current Nightfall");
+
             try
             {
                 await _client.Rest.CreateGuildCommand(statusCommand.Build(), guildID);
+                await _client.Rest.CreateGuildCommand(nightfallCommand.Build(), guildID);
             }
             catch (HttpException exception)
             {
@@ -56,6 +61,9 @@ namespace VanguardBot
             {
                 case "status":
                     new TwitterMethods().TwitterMain(command);
+                    break;
+                case "nightfall":
+                    new BungieMethods().getNightfall(command);
                     break;
                 default:
                     await command.RespondAsync($"You have run {command.Data.Name}, which does nothing.");

@@ -44,9 +44,17 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "BungieSharper": {
+              "target": "Package",
+              "version": "[0.9.0, )"
+            },
             "Discord.Net": {
               "target": "Package",
               "version": "[3.5.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             },
             "TwitterSharp": {
               "target": "Package",
