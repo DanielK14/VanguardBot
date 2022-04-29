@@ -10,40 +10,31 @@ namespace VanguardBot
 {
     class BungieMethods
     {
-
-        public async void bungieTest()
-        {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("X-API-Key", Environment.GetEnvironmentVariable("BungieAPIToken"));
-
-                var response = await client.GetAsync("https://www.bungie.net/platform/Destiny/Manifest/InventoryItem/1274330687/");
-                var content = await response.Content.ReadAsStringAsync();
-                dynamic item = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
-
-                Console.WriteLine(item.Response.data.inventoryItem.itemName); //Gjallarhorn
-            }
-        }
-
         public async void getNightfall(SocketSlashCommand command)
         {
             using (var client = new HttpClient())
             {
+                string nightFallName = null;
                 client.DefaultRequestHeaders.Add("X-API-Key", Environment.GetEnvironmentVariable("BungieAPIToken"));
-
                 var response = await client.GetAsync("https://www.bungie.net/Platform/Destiny2/3/Profile/4611686018484533920/Character/2305843009460474089?components=204");
                 var content = await response.Content.ReadAsStringAsync();
                 dynamic item = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
-
-                long NFHash = item.Response.activities.data.availableActivities[16].activityHash;
-                int NFId = hashConverter(NFHash);
-                string nightFallName = NFLookup(NFId);
-                await command.RespondAsync(nightFallName);
+                for (int i = 0; i < 100; i++)
+                {
+                    long activityHash = item.Response.activities.data.availableActivities[i].activityHash;
+                    int activityID = hashConverter(activityHash);
+                    nightFallName = NFLookup(activityID);
+                    if (nightFallName != null) { 
+                        await command.RespondAsync(nightFallName);
+                        break;
+                    }
+                }
+                if (nightFallName == null) { await command.RespondAsync("No Nightfall found"); }
             }
         }
         public async void getChallenges(SocketSlashCommand command)
         {
-            List<int> activitiesId = new List<int> { 18, 36, 69, 73 };
+            List<int> activitiesId = new List<int> { };
             string challenges = "";
             using (var client = new HttpClient())
             {
@@ -51,7 +42,16 @@ namespace VanguardBot
                 var response = await client.GetAsync("https://www.bungie.net/Platform/Destiny2/3/Profile/4611686018484533920/Character/2305843009460474089?components=204");
                 var content = await response.Content.ReadAsStringAsync();
                 dynamic item = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
-                foreach(int activity in activitiesId)
+                for (int i = 0; i < 100; i++)
+                {
+                    long activityHash = item.Response.activities.data.availableActivities[i].activityHash;
+                    int activityID = hashConverter(activityHash);
+                    if(activityID == 910380154)  {activitiesId.Add(i);}
+                    if(activityID == 1441982566) {activitiesId.Add(i);}
+                    if(activityID == -413471533) {activitiesId.Add(i);}
+                    if(activityID == -836487138) {activitiesId.Add(i);}
+                }
+                foreach (int activity in activitiesId)
                 {
                     long challengeHash = item.Response.activities.data.availableActivities[activity].modifierHashes[0];
                     int challengeId = hashConverter(challengeHash);
@@ -108,7 +108,7 @@ namespace VanguardBot
                 case 2136458561:
                     return "The Disgraced";
                 default:
-                    return "Unknown NightfallId";
+                    return null;
 
             }
         }
