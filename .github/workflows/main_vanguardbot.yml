@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'VanguardBot'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A6D68C381AF3439EB2F840DECC8BEF47 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7D6C79FC63004B5F820EBABFE351449C }}
           package: .
