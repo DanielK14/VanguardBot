@@ -49,9 +49,9 @@ namespace VanguardBot
 
             try
             {
-                await _client.Rest.CreateGuildCommand(statusCommand.Build(), guildID);
-                await _client.Rest.CreateGuildCommand(nightfallCommand.Build(), guildID);
-                await _client.Rest.CreateGuildCommand(challengesCommand.Build(), guildID);
+                await _client.CreateGlobalApplicationCommandAsync(statusCommand.Build() );
+                await _client.CreateGlobalApplicationCommandAsync(nightfallCommand.Build());
+                await _client.CreateGlobalApplicationCommandAsync(challengesCommand.Build());
             }
             catch (HttpException exception)
             {
